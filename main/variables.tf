@@ -1,5 +1,5 @@
 # environment variables
 variable "region" {}
-variable "project_name" {}
-variable "environment" {}
+variable "project" {}
+variable "env" {}
 

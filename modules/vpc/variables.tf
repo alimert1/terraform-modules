@@ -1,23 +1,13 @@
-#enviroment variables
-
-variable "project_name" {}
+variable "project" {}
 
 variable "region" {}
 
-variable "environment" {}
+variable "env" {}
 
-# vpc variables
+variable "vpc_block" {}
 
-variable "vpc_cidr" {}
+variable "public-subnet-map" {}
 
-variable "public_subnet_az1_cidr" {}
+variable "data-subnet-map" {}
 
-variable "public_subnet_az2_cidr" {}
-
-variable "private_app_subnet_az1_cidr" {}
-
-variable "private_app_subnet_az2_cidr" {}
-
-variable "private_data_subnet_az1_cidr" {}
-
-variable "private_data_subnet_az2_cidr" {}
+variable "private-subnet-map" {}

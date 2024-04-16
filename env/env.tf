@@ -4,24 +4,21 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "5.42.0"
+      version = "~> 5.0"
     }
   }
 
   backend "s3" {
-    bucket         = "<<project>>-tfstate-<<environment>>"
+    bucket         = "limon-project-tfstate"
     key            = "infrastructure/terraform.tfstate"
     region         = "eu-central-1"
-    
-    access_key     = ""
-    secret_key     = ""
+    profile        = "limon-project"
   }
 }
 
 provider "aws" {
   region     = "eu-central-1"
-  access_key = ""
-  secret_key = ""
+  profile    = "limon-project"
 
   default_tags {
     tags = {
@@ -32,11 +29,10 @@ provider "aws" {
   }
 }
 
-
 module "main" {
   source = "../main"
 
-  project_name  = "terraform-modules"
-  environment     = "Test"
-  region  = "frankfurt"
+  project = "limon-project"
+  env     = "PROD"
+  region  = "eu-central-1"
 }

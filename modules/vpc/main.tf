@@ -1,16 +1,8 @@
-# create vpc
-resource "aws_vpc" "vpc" {
-  cidr_block           = var.vpc_cidr
-  instance_tenancy     = "default"
+resource "aws_vpc" "main" {
+  cidr_block           = var.vpc_block
   enable_dns_hostnames = true
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-vpc"
+    Name      = "${var.env}-VPC"
   }
 }
-
-
-
-
-
-
