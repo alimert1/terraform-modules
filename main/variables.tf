@@ -1,5 +1,11 @@
 # environment variables
-variable "region" {}
-variable "project" {}
-variable "env" {}
+variable "region" {
+    default = "eu-central-1"
+}
+variable "project" {
+    default = "limon-project"
+}
+variable "env" {
+    default = "PROD"
+}
 
