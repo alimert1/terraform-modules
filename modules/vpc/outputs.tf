@@ -17,3 +17,8 @@ output "data_subnets" {
 output "data_subnet_cidr" {
   value = aws_subnet.data_subnets.*.cidr_block
 }
+
+
+output "ecs_service_subnets" {
+  value = aws_subnet.ecs_service_subnets.*.id
+}

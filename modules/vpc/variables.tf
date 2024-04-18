@@ -11,3 +11,5 @@ variable "public-subnet-map" {}
 variable "data-subnet-map" {}
 
 variable "private-subnet-map" {}
+
+variable "ecs-subnet-map" {}

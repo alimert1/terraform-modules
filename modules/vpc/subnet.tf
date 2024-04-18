@@ -37,3 +37,21 @@ resource "aws_subnet" "data_subnets" {
 
   }
 }
+
+
+resource "aws_subnet" "ecs_service_subnets" {
+  count             = length(var.ecs-subnet-map)
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = lookup(var.ecs-subnet-map[count.index], "cidr")
+  availability_zone = lookup(var.ecs-subnet-map[count.index], "az")
+
+  tags = {
+    Name = "${lookup(var.ecs-subnet-map[count.index], "name")}"
+    Terraform                             = "true"
+    environment                           = "Prod"
+
+  }
+
+
+}
+

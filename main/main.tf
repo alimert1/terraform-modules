@@ -1,11 +1,4 @@
-/*
-module "acm" {
-    source = "../modules/acm"
 
-    domain_name = ""
-    profile = ""
-}
-*/
 
 
 /*
@@ -14,22 +7,9 @@ module "api-gateway"{
 
 }
 */
-/*
-module "ecs" {
-    source = "../modules/ecs"
 
-    vpc_id             = module.vpc.vpc_id
-    ecs_subnets        = module.vpc.ecs_subnets
-    cluster_name       = "energy-pool-cluster"
 
-    public_subnets     = module.vpc.public_subnets
-    private_subnets    = module.vpc.data_subnets
 
-    certificate_arn    = module.acm.certificate_arn
-    ecr_image          = ""
-    project            = "${var.project}-${var.env}"
-}
-*/
 /*
 module "opensearch" {
     source = "../modules/opensearch"
@@ -47,6 +27,7 @@ module "opensearch" {
 }
 */
 
+
 module "vpc" {
     source = "../modules/vpc"
     env = var.env
@@ -62,4 +43,20 @@ module "vpc" {
 
     data-subnet-map = [{ name = "${var.env}-Data-1a", az = "${var.region}a" , cidr = "10.134.20.0/24", rt_name =  "${var.env}-Data"},
                        { name = "${var.env}-Data-1b" , az = "${var.region}b", cidr = "10.134.21.0/24"}]
+
+    ecs-subnet-map = [{ name = "${var.env}-ecs-1a", az = "${var.region}a" , cidr = "10.134.30.0/24", rt_name =  "${var.env}-ecs"},
+                       { name = "${var.env}-ecs-1b" , az = "${var.region}b", cidr = "10.134.31.0/24"}]
+}
+module "ecs" {  
+    source = "../modules/ecs"
+
+    vpc_id             = module.vpc.vpc_id
+
+    ecs_service_subnets = module.vpc.ecs_service_subnets
+
+    public_subnets     = module.vpc.public_subnets
+    private_subnets    = module.vpc.data_subnets
+ 
+    ecr_image          = "992382571144.dkr.ecr.eu-central-1.amazonaws.com/todo-list:latest"
+    project            = "${var.project}-${var.env}"
 }
