@@ -63,3 +63,27 @@ module "vpn" {
 }
 
 
+module "rds" {
+  source = "../modules/rds"
+
+  vpc_id       = module.vpc.vpc_id
+  data_subnets = module.vpc.data_subnets
+  vpc_cidr     = module.vpc.vpc_cidr
+
+  project = "${var.project}-${var.env}"
+
+  port               = 5432
+  engine             = "aurora-mysql"
+  engine_mode        = "provisioned"
+  engine_version     = "5.7"
+  cluster_identifier = "${var.project}-${var.env}-db-cluster"
+  database_name      = "limonDB"
+  master_username    = "admin"
+  instance_class     = "db.t3.medium"
+  instance_count     = "2"
+
+  preferred_backup_window      = "01:05-01:35"
+  preferred_maintenance_window = "sun:02:00-sun:02:30"
+
+}
+
