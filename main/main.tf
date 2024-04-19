@@ -1,33 +1,3 @@
-
-
-
-/*
-module "api-gateway"{
-    source = "../modules/api-gateway"
-
-}
-*/
-
-
-
-/*
-module "opensearch" {
-    source = "../modules/opensearch"
-
-    vpc_id          = module.vpc.vpc_id
-    data_subnets    = module.vpc.data_subnets
-    vpc_cidr        = module.vpc.vpc_cidr
-
-    domain_name     = "${var.project}"
-    engine_version  = "OpenSearch_2.11"
-    instance_type   = "t3.small.search"
-    instance_count  = 1
-    
-    master_user_name = "energy-pool"
-}
-*/
-
-
 module "vpc" {
     source = "../modules/vpc"
     env = var.env
@@ -77,3 +47,19 @@ module "load-balancer" {
   domain          = ["aws-test.domain.com"]
 
 }
+
+module "s3" {
+  source = "../modules/s3"
+}
+
+
+module "vpn" {
+  source = "../modules/vpn"
+
+  instance_type  = "t2.small"
+  project        = "${var.project}-${var.env}"
+  vpc_id         = module.vpc.vpc_id
+  public_subnets = module.vpc.public_subnets
+}
+
+
