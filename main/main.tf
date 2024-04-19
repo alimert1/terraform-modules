@@ -60,3 +60,20 @@ module "ecs" {
     ecr_image          = "992382571144.dkr.ecr.eu-central-1.amazonaws.com/todo-list:latest"
     project            = "${var.project}-${var.env}"
 }
+
+
+module "waf" {
+  source = "../modules/waf"
+  
+  load_balancer_arn = module.load-balancer.load_balancer_arn
+}
+
+module "load-balancer" {
+  source          = "../modules/load-balancer"
+  
+  project         = "${var.project}-${var.env}"
+  vpc_id          = module.vpc.vpc_id
+  public_subnets  = module.vpc.public_subnets
+  domain          = ["aws-test.domain.com"]
+
+}
