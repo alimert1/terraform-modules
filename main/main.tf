@@ -104,3 +104,21 @@ module "mq" {
   data_subnets         = module.vpc.data_subnets
 }
 
+module "elasticache" {
+  source = "../modules/elasticache"
+
+  data_subnets = module.vpc.data_subnets
+  vpc_id       = module.vpc.vpc_id
+  vpc_cidr     = module.vpc.vpc_cidr
+
+  cluster_id      = "limon-redis"
+  engine          = "redis"
+  engine_version  = "6.2"
+  node_type       = "cache.t3.medium"
+  num_cache_nodes = 1
+  port            = "6379"
+
+  parameter_group_name = "default.redis6.2"
+}
+
+
