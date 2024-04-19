@@ -87,3 +87,20 @@ module "rds" {
 
 }
 
+module "mq" {
+  source               = "../modules/mq"
+  broker_name          = "${var.project}-${var.env}-mq"
+  engine_type          = "ActiveMQ"
+  engine_version       = "5.17.2"
+#   engine_type          = "RabbitMQ"
+#   engine_version       = "3.10.10"
+  host_instance_type   = "mq.t3.micro"
+  username             = "${var.project}-${var.env}"
+  port                 = 61616
+#   port                 = 15671
+  project              = "${var.project}-${var.env}"
+  vpc_id               = module.vpc.vpc_id
+  vpc_cidr             = module.vpc.vpc_cidr
+  data_subnets         = module.vpc.data_subnets
+}
+
