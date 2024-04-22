@@ -143,3 +143,12 @@ module "efs" {
   data_subnets = module.vpc.data_subnets
   vpc_cidr     = module.vpc.vpc_cidr
 }
+
+module "cloudfront" {
+  source  = "../modules/cloudfront"
+
+  project = lower(var.project)
+  aliases = "cdn.carrtell.co"
+
+
+}
