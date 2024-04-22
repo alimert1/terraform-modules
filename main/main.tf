@@ -122,3 +122,24 @@ module "elasticache" {
 }
 
 
+module "opensearch" {
+  source = "../modules/opensearch"
+
+  vpc_id          = module.vpc.vpc_id
+  vpc_cidr        = module.vpc.vpc_cidr
+  private_subnets = module.vpc.private_subnets
+
+  domain_name      = "carrtell"
+  engine_version   = "OpenSearch_2.5"
+  instance_type    = "t3.small.search"
+  instance_count   = 1
+  master_user_name = "carrtell"
+}
+
+module "efs" {
+  source       = "../modules/efs"
+  vpc_id       = module.vpc.vpc_id
+  efs_name     = "${var.project}-${var.env}"
+  data_subnets = module.vpc.data_subnets
+  vpc_cidr     = module.vpc.vpc_cidr
+}
