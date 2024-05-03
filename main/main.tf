@@ -27,7 +27,7 @@ module "ecs" {
     public_subnets     = module.vpc.public_subnets
     private_subnets    = module.vpc.data_subnets
  
-    ecr_image          = "992382571144.dkr.ecr.eu-central-1.amazonaws.com/todo-list:latest"
+    ecr_image          = "992382571144.dkr.ecr.eu-central-1.amazonaws.com/nodejs-ssl-server-limon-private:latest"
     project            = "${var.project}-${var.env}"
 }
 
@@ -72,7 +72,7 @@ module "rds" {
 
   project = "${var.project}-${var.env}"
 
-  port               = 5432
+  port               = 3306
   engine             = "aurora-mysql"
   engine_mode        = "provisioned"
   engine_version     = "5.7"

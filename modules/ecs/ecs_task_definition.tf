@@ -10,6 +10,11 @@ resource "aws_ecs_task_definition" "main" {
       image     = "${var.ecr_image}"
       essential = true
 
+      /*
+      essential = true: Bu parametre, konteynerin hizmetin çalışması için zorunlu olup olmadığını belirtir.
+      true olarak ayarlandığında, hizmetin çalışması için bu konteynerin başlatılması gerekir.
+      */
+
       logConfiguration = {
         logDriver = "awslogs"
 
@@ -18,12 +23,18 @@ resource "aws_ecs_task_definition" "main" {
           awslogs-region        = "eu-central-1"
           awslogs-stream-prefix = "ecs"
         }
+        /*
+        awslogs-group = "/ecs/${var.project}-task-definition": 
+        Bu parametre, günlüklerin hangi CloudWatch Logs grubuna kaydedileceğini belirtir. Bu örnekte, her görev tanımı için benzersiz bir CloudWatch Logs grubu oluşturmak için proje adı kullanılır.
+
+        awslogs-stream-prefix = "ecs": Bu parametre, günlük akışlarının ön adını belirtir. 
+        Bu, genellikle konteynerin adı veya başka bir tanımlayıcı olabilir. Bu örnekte, ecs ön adı kullanılmıştır.
+        */
       }
 
       portMappings = [
         {
-          containerPort = 3978
-          hostPort      = 3978
+          containerPort = 3000
         }
       ]
     }

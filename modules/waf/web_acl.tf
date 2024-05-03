@@ -8,6 +8,10 @@ resource "aws_wafv2_web_acl" "main" {
     }
   }
 
+  /*
+   Bu dosya, WAF web ACL'lerini (Web Access Control List) tanımlar. Web ACL'ler, belirli bir web uygulamasına uygulanacak WAF kurallarını içerir.
+  */
+
   rule {
     name     = "blocked-IPs"
     priority = 2

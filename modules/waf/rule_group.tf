@@ -72,3 +72,9 @@ resource "aws_wafv2_rule_group" "country" {
     sampled_requests_enabled   = true
   }
 }
+
+
+/*
+WAF kurallarını ve kurallar grubunu tanımlar.
+IP setleri genellikle WAF kurallarında kullanılır, bu yüzden IP setlerini tanımlamak ve ardından bu IP setlerini WAF kurallarına eklemek mantıklı olabilir.
+*/

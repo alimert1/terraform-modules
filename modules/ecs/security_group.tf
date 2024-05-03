@@ -4,17 +4,8 @@ resource "aws_security_group" "ecs-sg" {
 
   ingress {
     description = "TLS from VPC"
-    from_port   = 3978
-    to_port     = 3978
-    protocol    = "tcp"
-    self        = false
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    description = "TLS from VPC"
-    from_port   = 5000
-    to_port     = 5000
+    from_port   = 3000
+    to_port     = 3000
     protocol    = "tcp"
     self        = false
     cidr_blocks = ["0.0.0.0/0"]
