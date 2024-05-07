@@ -33,6 +33,6 @@ module "main" {
   source = "../main"
 
   project = "limon-project"
-  env     = "PROD"
+  env     = "prod"
   region  = "eu-central-1"
 }

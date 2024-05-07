@@ -16,6 +16,6 @@ resource "aws_nat_gateway" "nat" {
   tags = {
     Name      = "${var.env}-NATGW"
     Terraform   = "true"
-    environment = "Prod"
+    environment = "prod"
   }
 }

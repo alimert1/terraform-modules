@@ -62,30 +62,54 @@ module "vpn" {
   public_subnets = module.vpc.public_subnets
 }
 
-
 module "rds" {
+
   source = "../modules/rds"
 
-  vpc_id       = module.vpc.vpc_id
-  data_subnets = module.vpc.data_subnets
-  vpc_cidr     = module.vpc.vpc_cidr
-
-  project = "${var.project}-${var.env}"
-
-  port               = 3306
-  engine             = "aurora-mysql"
-  engine_mode        = "provisioned"
-  engine_version     = "5.7"
-  cluster_identifier = "${var.project}-${var.env}-db-cluster"
-  database_name      = "limonDB"
-  master_username    = "admin"
-  instance_class     = "db.t3.medium"
-  instance_count     = "2"
-
-  preferred_backup_window      = "01:05-01:35"
-  preferred_maintenance_window = "sun:02:00-sun:02:30"
-
+  vpc_id                       = module.vpc.vpc_id
+  data_subnets                 = module.vpc.data_subnets
+  egress_cidr                  = "0.0.0.0/0"
+  project                      = "${var.project}-${var.env}"
+  port                         = 3306
+  engine                       = "mysql"
+  engine_mode                  = "provisioned"
+  engine_version               = "8.0.33"
+  master_username              = "admin"
+  preferred_backup_window      = "00:05-00:35"
+  preferred_maintenance_window = "sun:01:00-sun:01:30"
+  storage_type                 = "gp2"
+  instance_class               = "db.t3.medium"
+  allocated_storage            = 50
+  sg_cidr_block                = "10.0.0.0/20"
+  identifier                   = "${var.project}-${var.env}-db"
+  db_name                      = "${var.project}${var.env}db"
+  multi_az                     = false
 }
+
+
+# module "rds" {
+#   source = "../modules/rds"
+
+#   vpc_id       = module.vpc.vpc_id
+#   data_subnets = module.vpc.data_subnets
+#   vpc_cidr     = module.vpc.vpc_cidr
+
+#   project = "${var.project}-${var.env}"
+
+#   port               = 3306
+#   engine             = "aurora-mysql"
+#   engine_mode        = "provisioned"
+#   engine_version     = "5.7"
+#   cluster_identifier = "${var.project}-${var.env}-db-cluster"
+#   database_name      = "limonDB"
+#   master_username    = "admin"
+#   instance_class     = "db.t3.medium"
+#   instance_count     = "2"
+
+#   preferred_backup_window      = "01:05-01:35"
+#   preferred_maintenance_window = "sun:02:00-sun:02:30"
+
+# }
 
 module "mq" {
   source               = "../modules/mq"
@@ -129,11 +153,11 @@ module "opensearch" {
   vpc_cidr        = module.vpc.vpc_cidr
   private_subnets = module.vpc.private_subnets
 
-  domain_name      = "carrtell"
+  domain_name      = "limon"
   engine_version   = "OpenSearch_2.5"
   instance_type    = "t3.small.search"
   instance_count   = 1
-  master_user_name = "carrtell"
+  master_user_name = "limon"
 }
 
 module "efs" {
@@ -148,7 +172,13 @@ module "cloudfront" {
   source  = "../modules/cloudfront"
 
   project = lower(var.project)
-  aliases = "cdn.carrtell.co"
+  aliases = "cdn.limon.com"
+}
 
+module "codepipeline" {
+  source = "../modules/codepipeline"
 
+  vpc_id          = module.vpc.vpc_id
+  private_subnets = module.vpc.private_subnets
+  master_password = module.rds.master_password
 }

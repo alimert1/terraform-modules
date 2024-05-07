@@ -64,3 +64,4 @@ resource "aws_security_group" "lb-sg" {
     Name      = "${var.project}-lb-sg"
   }
 }
+

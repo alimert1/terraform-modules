@@ -7,7 +7,7 @@ resource "aws_subnet" "public_subnets" {
   tags = {
     Name = "${lookup(var.public-subnet-map[count.index], "name")}"
     Terraform                             = "true"
-    environment                           = "Prod"
+    environment                           = "prod"
   }
 }
 
@@ -20,7 +20,7 @@ resource "aws_subnet" "private_subnets" {
   tags = {
     Name                                  = "${lookup(var.private-subnet-map[count.index], "name")}"
     Terraform                             = "true"
-    environment                           = "Prod"
+    environment                           = "prod"
   }
 }
 

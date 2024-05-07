@@ -9,7 +9,7 @@ resource "aws_route_table" "public" {
   tags = {
     Name      = "${lookup(var.public-subnet-map[0], "rt_name")}-RT"
     Terraform   = "true"
-    environment = "Prod"
+    environment = "prod"
   }
 }
 
@@ -19,7 +19,7 @@ resource "aws_route_table" "data" {
   tags = {
     Name      = "${lookup(var.data-subnet-map[0], "rt_name")}-RT"
     Terraform   = "true"
-    environment = "Prod"
+    environment = "prod"
 
   }
 }
@@ -35,7 +35,7 @@ resource "aws_route_table" "private"{
   tags = {
     Name      = "${lookup(var.private-subnet-map[0], "rt_name")}-RT"
     Terraform   = "true"
-    environment = "Prod"
+    environment = "prod"
   }
 }
 
