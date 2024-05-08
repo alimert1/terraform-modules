@@ -83,7 +83,7 @@ module "rds" {
   sg_cidr_block                = "10.0.0.0/20"
   identifier                   = "${var.project}-${var.env}-db"
   db_name                      = "${var.project}${var.env}db"
-  multi_az                     = false
+  multi_az                     = true
 }
 
 
@@ -137,12 +137,12 @@ module "elasticache" {
 
   cluster_id      = "limon-redis"
   engine          = "redis"
-  engine_version  = "6.2"
+  engine_version  = "7.0"
   node_type       = "cache.t3.medium"
   num_cache_nodes = 1
   port            = "6379"
 
-  parameter_group_name = "default.redis6.2"
+  parameter_group_name = "default.redis7"
 }
 
 

@@ -24,3 +24,4 @@ resource "aws_secretsmanager_secret_version" "password_opensearch" {
     }
   )
 }
+

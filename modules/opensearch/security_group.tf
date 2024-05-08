@@ -1,6 +1,6 @@
 resource "aws_security_group" "opensearch" {
-  name        = "${var.domain_name}-OpenSearch-SG"
-  description = "${var.domain_name}-OpenSearch-SG"
+  name        = "Limon-OpenSearch-SG"
+  description = "Limon-OpenSearch-SG"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -25,7 +25,7 @@ resource "aws_security_group" "opensearch" {
   }
 
   tags = {
-    Name = "${var.domain_name}-OpenSearch-SG"
+    Name = "Limon-OpenSearch-SG"
 
   }
 }

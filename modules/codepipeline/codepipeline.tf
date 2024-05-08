@@ -66,6 +66,23 @@ resource "aws_codepipeline" "limon_api" {
     }
   }
 
+  stage {
+    name = "Deploy"
+    action {
+      name            = "Deploy"
+      category        = "Deploy"
+      owner           = "AWS"
+      provider        = "ECS"
+      version         = "1"
+      input_artifacts = ["build"]
+      output_artifacts = ["deploy"]
+      configuration = {
+        ClusterName = "nodejs-app-cluster"
+        ServiceName = "nodejs-test-svc"
+      }
+    }
+  }
+
   tags = {
     Terraform   = "true"
     Environment = ""
@@ -113,6 +130,23 @@ resource "aws_codepipeline" "limon_frontend" {
       output_artifacts = ["build"]
       configuration = {
         ProjectName = aws_codebuild_project.limon_frontend.name
+      }
+    }
+  }
+
+stage {
+    name = "Deploy"
+    action {
+      name            = "Deploy"
+      category        = "Deploy"
+      owner           = "AWS"
+      provider        = "ECS"
+      version         = "1"
+      input_artifacts = ["build"]
+      output_artifacts = ["deploy"]
+      configuration = {
+        ClusterName = "nodejs-app-cluster"
+        ServiceName = "nodejs-test-svc"
       }
     }
   }

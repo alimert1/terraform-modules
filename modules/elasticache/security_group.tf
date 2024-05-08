@@ -20,5 +20,6 @@ resource "aws_security_group" "elasticache-sg" {
 
   tags = {
     Name      = "${var.cluster_id}-sg"
+    Terraform = "true"
   }
 }
