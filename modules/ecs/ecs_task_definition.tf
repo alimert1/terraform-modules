@@ -2,8 +2,8 @@ resource "aws_ecs_task_definition" "main" {
   family                   = "${var.project}-task-definition"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  cpu                      = 256
-  memory                   = 512
+  cpu                      = 512
+  memory                   = 1024
   container_definitions = jsonencode([
     {
       name      = "${var.project}-container"

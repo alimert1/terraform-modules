@@ -64,6 +64,13 @@ resource "aws_iam_role_policy" "limon_frontend_codepipeline_policy" {
     {
       "Effect": "Allow",
       "Action": [
+        "codestar-connections:UseConnection"
+      ],
+      "Resource": "${aws_codestarconnections_connection.limon.arn}"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
         "codebuild:BatchGetBuilds",
         "codebuild:StartBuild"
       ],

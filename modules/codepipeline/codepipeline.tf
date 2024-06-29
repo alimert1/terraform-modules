@@ -1,3 +1,7 @@
+resource "aws_codestarconnections_connection" "limon" {
+  name          = "limon"
+}
+
 resource "aws_s3_bucket" "limon_api" {
   bucket = "limon_apicodepipeline"
 
@@ -50,6 +54,11 @@ resource "aws_codepipeline" "limon_api" {
       provider         = "CodeStarSourceConnection"
       version          = "1"
       output_artifacts = ["source"]
+      configuration = {
+        ConnectionArn    = aws_codestarconnections_connection.limon.arn
+        FullRepositoryId = "limon/limon_api"
+        BranchName       = "master"
+      }
     }
   }
 
@@ -112,6 +121,7 @@ resource "aws_codepipeline" "limon_frontend" {
       version          = "1"
       output_artifacts = ["source"]
       configuration = {
+        ConnectionArn    = aws_codestarconnections_connection.limon.arn
         FullRepositoryId = "limondev/limon-frontend"
         BranchName       = "master"
       }

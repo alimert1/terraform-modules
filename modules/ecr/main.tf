@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "limon_api" {
-  name = "limon-api"
+  name = "limon_api"
 
   image_tag_mutability = "MUTABLE"
 
@@ -13,7 +13,7 @@ resource "aws_ecr_repository" "limon_api" {
 }
 
 resource "aws_ecr_repository" "limon_frontend" {
-  name = "limon-frontend"
+  name = "limon_frontend"
 
   image_tag_mutability = "MUTABLE"
 
